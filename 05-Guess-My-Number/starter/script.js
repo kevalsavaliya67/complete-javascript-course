@@ -11,24 +11,7 @@ document.querySelector('.check').addEventListener('click', function () {
   // When there is no input
   if (!guess) {
     document.querySelector('.message').textContent = '🛑 Empty';
-  }
-
-  // when guess is to low....
-  else if (guess < t && score) {
-    document.querySelector('.message').textContent = '📉 Too low...';
-    score--;
-    document.querySelector('.score').textContent = score;
-  }
-
-  //when guess is to high....
-  else if (guess > t && score) {
-    document.querySelector('.message').textContent = '📈 Too high ';
-    score--;
-    document.querySelector('.score').textContent = score;
-  }
-
-  // when player wins....
-  else {
+  } else if (guess === t) {
     document.querySelector('.message').textContent = '🥳 correct number .. ';
     document.querySelector('.number').textContent = t;
     highScore = Math.max(highScore, score);
@@ -37,6 +20,14 @@ document.querySelector('.check').addEventListener('click', function () {
     document.querySelector('body').style.backgroundImage =
       "url('https://ca-times.brightspotcdn.com/dims4/default/97494b3/2147483647/strip/true/crop/3677x2451+0+0/resize/1200x800!/format/webp/quality/80/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F5d%2Fd9%2Fc7cc87b721adae088e32cea40d01%2F8b3f73aed3214b658b599057596934bb')";
   }
+  // when guess is to low....
+  else if (score) {
+    document.querySelector('.message').textContent =
+      guess < t ? '📉 Too low...' : '📈 Too high ';
+    score--;
+    document.querySelector('.score').textContent = score;
+  }
+  // when player wins....
 
   //when player loses....
   if (score < 1) {
