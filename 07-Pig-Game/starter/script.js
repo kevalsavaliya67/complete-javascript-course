@@ -11,13 +11,14 @@ const btRoll = document.querySelector('.btn--roll');
 const btnHold = document.querySelector('.btn--hold');
 
 //starting conditions ..
-score0El.textContent = 0;
+score0El.textContent = 99;
 score1El.textContent = 0;
 diceEl.classList.add('hidden');
 var currentScore = 0;
 var currentPlayer = 0;
 var finalScore = [0, 0];
 
+// change player
 function switchPlayer() {
   currentScore = 0;
   document.getElementById(`current--${currentPlayer}`).textContent = 0;
@@ -31,6 +32,8 @@ function switchPlayer() {
     .querySelector(`.player--${currentPlayer}`)
     .classList.add('player--active');
 }
+
+//roll btn click event
 btRoll.addEventListener('click', function () {
   //genrate random number in b/w 1 to 6
   var t = Math.trunc(Math.random() * 6) + 1;
@@ -55,21 +58,17 @@ btnHold.addEventListener('click', function () {
   var displayScr = Number(
     document.querySelector(`#score--${currentPlayer}`).textContent
   );
-  document.querySelector(`#score--${currentPlayer}`).textContent =
-    Number(displayScr) + currentScore;
-  var displayScr = Number(
-    document.querySelector(`#score--${currentPlayer}`).textContent
-  );
+  displayScr += currentScore;
   if (displayScr >= 100) {
     document
       .querySelector(`.player--${currentPlayer}`)
       .classList.add('player--winner');
   }
+  document.querySelector(`#score--${currentPlayer}`).textContent = displayScr;
   switchPlayer();
 });
 
-//new btn implemation ...
-btnNew.addEventListener('click', function () {
+function newbt() {
   if (currentPlayer == 1) switchPlayer();
   document.querySelector('.player--0').classList.add('player--active');
   document.querySelector('.player--0').classList.remove('player--winner');
@@ -82,4 +81,6 @@ btnNew.addEventListener('click', function () {
   currentPlayer = 0;
   document.getElementById(`current--0`).textContent = 0;
   document.getElementById(`current--1`).textContent = 0;
-});
+}
+//new btn implemation ...
+btnNew.addEventListener('click', newbt);
